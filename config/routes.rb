@@ -2,15 +2,17 @@ Rails.application.routes.draw do
   #devise_for :admins
   devise_for :customers,skip: [:passwords], controllers: {
   registrations: "public/registrations",
-  sessions: 'public/sessions'}
-  
+  sessions: 'public/sessions'
+  }
+
   resources :cart, only: [:show]
   resources :charge, only: [:create]
   
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
-  sessions: "admin/sessions"}
-    namespace :admin do
-
+  sessions: "admin/sessions"
+  }
+  
+  namespace :admin do
     get 'genres/index'
     get 'genres/edit'
   end

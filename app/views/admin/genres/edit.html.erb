@@ -1,27 +1,17 @@
-<h1>Admin::Genres#edit</h1>
-<p>Find me in app/views/admin/genres/edit.html.erb</p>
-
-<div class = "row">
-    <div class = "col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-      <h1>Editing Genres</h1>
-        <%= form_with model: @item do |f| %>
-       <div class="form-title row">
- 	     <%= f.label :title %>
- 	     <%= f.text_field :title, class: "col-md-12" %>
-       </div>
-       <div class="form-body row">
- 	     <%= f.label :Opinon %>
-       <%= f.text_area :body, class: "col-md-12" %>
-       </div>
-     <div class="actions row">
- 	   <%= f.submit 'Update genres', class: "btn btn-success" %>
-     </div>
-       <% end %>
-     <div class="menu">
-      <%= link_to "Show", admin_path(@item) %>
-      |
-      <%= link_to "Back", admins_path %>
-     </div>
+<div class="container">
+  <div class = "row">
+    <div class = "col-xs-6">
+      <h3>ジャンル編集</h3>
+        <%= form_with model: @genre, url: admin_genre_path, class:
+        "genre_edit_form", local:true do |f| %>
+        <div>
+          <%= f.label  :genre %>
+          <%= f.text_field :name, class: "genre-edit-field" %>
+          <%= radio_button :is_active, :true %><%= f.label :is_active,"有効" %>
+          <%= radio_button :is_active, :false %><%= f.label :is_active,"無効" %>
+          <%= f.submit "変更を保存する", class: "btn btn-primary genre_edit_btn" %>
+        </div>
+        <% end %>
     </div>
   <div class="col-xs-3"></div>
 </div>
