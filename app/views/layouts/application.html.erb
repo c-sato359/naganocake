@@ -1,16 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Naganocake</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+　<head>
+　  <title>Naganocake</title>
+　  <meta name="viewport" content="width=device-width,initial-scale=1">
+　  <%=csrf_meta_tags %>
+　  <%=csp_meta_tag %>
+　  <%=stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%=javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a href="/" class="navbar-brand"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" %>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if admin_signed_in? %>
+                <%= link_to admin_homes_top_path %>
+               <% else %>
+          <!-- ログインしていない時 -->
+               <li><%= link_to "商品一覧", items_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li style="font-family: Osaka; margin-top: 15px; color: #696969;">|</li>
+               <li><%= link_to "新規登録", new_customer_registration_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li style="font-family: Osaka; margin-top: 15px; color: #696969;">|</li>
+               <li><%= link_to "About", about_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li style="font-family: Osaka; margin-top: 15px; color: #696969;">|</li>
+               <li><%= link_to "ログイン", new_customer_session_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <% end %>
+               <% if customer_signed_in? %>
+          <!--カスタマーがログインしている時 -->
+               <li style="font-family: HiraMinPro-W6; margin-top: 15px;">
+               ようこそ、<%= current_customer.last_name + current_customer.first_name %>さん！
+               </li>
+               <li><%= link_to "マイページ", customers_show_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li style="font-family: Osaka; margin-top: 15px; color: #696969;">|</li>
+               <li><%= link_to "商品一覧", items_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li style="font-family: Osaka; margin-top: 15px; color: #696969;">|</li>
+               <li><%= link_to "カート", customers_cart_items_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li style="font-family: Osaka; margin-top: 15px; color: #696969;">|</li>
+               <li><%= link_to "About", about_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li style="font-family: Osaka; margin-top: 15px; color: #696969;">|</li>
+               <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+            　 <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
 
   <body>
+    <%= customer_signed_in? %>
+    <%= admin_signed_in? %>
     <%= yield %>
   </body>
 </html>
