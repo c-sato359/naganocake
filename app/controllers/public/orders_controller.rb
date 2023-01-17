@@ -1,5 +1,9 @@
 class Public::OrdersController < ApplicationController
-    before_action :authenticate_admin!
+    #before_action :authenticate_admin!
+  def new
+    @order = Order.new
+    @addresses = Address.all
+  end
 
   def show
     # 注文内容の情報を取得しています！

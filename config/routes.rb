@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    get 'genres/index'
-    get 'genres/edit'
+    resources :items
+    resources :genres
   end
   namespace :admin do
     get 'customers/index'

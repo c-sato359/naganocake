@@ -1,7 +1,9 @@
 class Admin::GenresController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @genre = Genre.new
-    @genre = Genre.all
+    @genres = Genre.all
   end
 
   def edit
@@ -19,7 +21,7 @@ class Admin::GenresController < ApplicationController
   def create
     @genre = Genre.new(genre_params)
     @genre.save
-      redirect_to admins_genres_path
+      redirect_to admin_genre_path
   end
 
   def edit
@@ -29,11 +31,11 @@ class Admin::GenresController < ApplicationController
   def update
     @genre = Genre.find(params[:id])
     if @genre.update(genre_params)
-       redirect_to admins_genres_path
+       redirect_to admin_genre_path
        flash[:success] = "編集に成功しました"
     else
        flash[:denger] = "編集に失敗しました"
-      render :edit
+       render :edit
     end
   end
 

@@ -1,5 +1,6 @@
 class Public::CartItemsController < ApplicationController
     # カート商品一覧を表示
+   before_action :authenticate_customer!
     def index
         @cart_items = current_customer.cart_items
         @total_price = @cart_items.sum{|cart_item|cart_item.item.price_without_tax * cart_item.quantity * 1.1}

@@ -7,15 +7,14 @@ class Public::ItemsController < ApplicationController
 
  def index
   @genres = Genre.all
-  @search = Item.ransack(params[:q])
-  @items = @search.result.page(params[:page]).per(8)
-  @items_all = Item.all
+  @items = Item.all
+  @quantity = Item.count 
  end
 
  def show
   @item = Item.find(params[:id])
   @cart_item = CartItem.new
-  @genres = Genre.all
+  @genres = Genre.where(valid_invalid_statue: 0)
  end
 
  def about

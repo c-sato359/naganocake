@@ -1,7 +1,8 @@
 class Admin::OrdersController < ApplicationController
-	#before_action :authenticate_admin!
+	before_action :authenticate_admin!
+  
   def index
-    @orders = Order.page(params[:page]).per(10)
+    @orders = Order.all(params[:id])
   end
 
 	def show
