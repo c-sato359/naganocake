@@ -12,16 +12,27 @@ class Admin::ItemsController < ApplicationController
   end
   def new
     @item = Item.new
+    
+   # if @item.save
+    #  flash[:notice] = "You have created item successfully."
+     # redirect_to new_admin_item_path(@item.id)
+  #  else
+   #   flash[:genre_created_error] = "ジャンル名を入力してください"
+#      @items = Item.all
+#      render :index
+  #  end
   end
   def create
     @item = Item.new(item_params)
+   # @genres = Genre.all
     if @item.save
-      flash[:notice] = "You have created item successfully."
-      redirect_to admins_item_path(@item.id)
+   #   flash[:notice] = "You have created item successfully."
+      redirect_to admin_item_path(@item)
     else
-      flash[:genre_created_error] = "ジャンル名を入力してください"
+      #flash[:genre_created_error] = "ジャンル名を入力してください"
       @items = Item.all
-      render :index
+      render "index"
+      
     end
   end
 
@@ -41,7 +52,7 @@ class Admin::ItemsController < ApplicationController
   private
 
   def item_params
-  	params.require(:item).permit(:genre_id,:item_name,:unit_price_without_tax,:sale_status,:explanation,:image)
+  	params.require(:item).permit(:genre_id,:item_name,:unit_price_without_tax,:sale_status,:explanation,:image,:name,:introduction,:price,:is_active)
   end
 
 end

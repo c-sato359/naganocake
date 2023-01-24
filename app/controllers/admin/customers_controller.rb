@@ -8,6 +8,7 @@ class Admin::CustomersController < ApplicationController
   end
 
   def show
+    @customers = Customer.all
     @customer = Customer.find(params[:id])
   end
 
@@ -18,10 +19,10 @@ class Admin::CustomersController < ApplicationController
   def update
     @customer = Customer.find(params[:id])
     if @customer.update(customer_params)
-      redirect_to admins_customer_path(@customer)
+      redirect_to admin_customers_path(@customer)
       flash[:notice_update] = "情報を更新しました！"
     else
-      edit_admins_customer_path(@customer)
+      edit_admin_customer_path(@customer)
     end
   end
 
