@@ -13,7 +13,7 @@ class AddDeviseToCustomers < ActiveRecord::Migration[6.1]
       t.string :postal_code
       t.string :address
       t.string :telephon_number
-      t.boolean :is_deleted
+      t.boolean :is_deleted, null: false, default: false
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
