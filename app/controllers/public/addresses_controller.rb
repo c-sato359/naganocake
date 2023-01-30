@@ -4,44 +4,44 @@ class Public::AddressesController < ApplicationController
 
     # 配送先一覧/配送先登録画面
     def index
-        @shipping_address = ShippingAddress.new
-        @shipping_addresses = current_customer.shipping_addresses
+        @address = Address.new
+        @addresses = Address.all
     end
 
     # 配送先登録ボタン
     def create
-        @shipping_address = ShippingAddress.new(shipping_address_params)
-        @shipping_address.customer_id = current_customer.id
-        if @shipping_address.save
-            redirect_to customers_shipping_addresses_path
+        @address = Address.new(address_params)
+        @address.customer_id = current_customer.id
+        if @address.save
+            redirect_to new_public_order_path
             flash[:success] = "登録しました。"
         else
-            @shipping_address = ShippingAddress.new
-            @shipping_addresses = current_customer.shipping_addresses
+            @address = Address.new
+            @addresses = current_customer.addresses
             render 'index'
         end
     end
     # 配送先を削除する
     def destroy
-        shipping_address = ShippingAddress.find(params[:id])
-        shipping_address.destroy
-        redirect_to customers_shipping_addresses_path
+        address = Address.find(params[:id])
+        address.destroy
+        redirect_to public_addresses_path
     end
 
     # 配送先編集ボタン
     def edit
-        @shipping_address = ShippingAddress.find(params[:id])
+        @address = Address.find(params[:id])
     end
 
     # 配送先編集保存ボタン
     def update
-        shipping_address = ShippingAddress.find(params[:id])
-        shipping_address.update(shipping_address_params)
-        redirect_to customers_shipping_addresses_path
+        address = Address.find(params[:id])
+        address.update(address_params)
+        redirect_to public_addresses_path
     end
 
     private
-    def shipping_address_params
-        params.require(:shipping_address).permit(:customer_id, :name, :postal_code, :address)
+    def address_params
+        params.require(:address).permit(:customer_id, :name, :postal_code, :address)
     end
 end

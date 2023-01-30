@@ -7,6 +7,8 @@ class Customer < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_one :purchase_record, dependent: :destroy
   has_many :addresses
+  has_many :cart_items
+  has_many :orders
     def prepare_cart
       cart || create_cart
     end

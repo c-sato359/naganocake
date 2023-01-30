@@ -3,14 +3,18 @@ Rails.application.routes.draw do
   namespace :public do
     get '/about', to: 'homes#about'
     get 'homes/top'
-    resources :customers
+    resource :customers
     resources :items, only: [:show, :index]
     resources :cart_items
+    #get '/orders/thanks' =>'orders#thanks'
+    get '/orders/thanks', to: 'orders#thanks'
+    #get 'orders/:id', to: 'orders#show'
     resources :orders
-    resources :delete_in_carts, only: [:create]
+    # :delete_in_carts, only: [:create]
+    delete "all_destroy" => "cart_items#all_destroy",as: "customers_all_destroy"
 #resources :items, only:[:show, :index]
  #   resources :homes, only:[:index]
-   get '/orders/thanks' =>'orders#thanks'
+   #get '/orders/thanks' =>'orders#thanks'
   end
   namespace :public do
     #get 'addresses/index'

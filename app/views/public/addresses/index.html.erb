@@ -13,7 +13,7 @@
         <%= f.label :住所 %>
       </div>
       <div class="col-xs-4">
-        <%= f.text_field :shipping_address, autofocus: true, autocomplete: "shipping_address", :size => "40*40" %>
+        <%= f.text_field :address, autofocus: true, autocomplete: "address", :size => "40*40" %>
       </div>
       <div class="col-xs-1">
         <%= f.label :宛名 %>
@@ -26,25 +26,25 @@
       </div>
       <% end %>
     </div>
+    <table  class="table table-bordered">
 
-     <table  class="table table-bordered">
+    <% @addresses.each do |address| %>
         <tr>
             <th>郵便番号</th>
             <th>住所</th>
             <th>宛名</th>
             <th></th>
         </tr>
-        <% @addresses.each do |address| %>
         <tr>
             <td><%= address.postal_code %></td>
-            <td><%= address.shipping_address %></td>
+            <td><%= address.address %></td>
             <td><%= address.name %></td>
             <td>
                 <!--id必要  edit_public_address_path-->
                 <%= link_to "編集する", edit_public_address_path(address),method: :get , class: "btn btn-primary" %>　　<%= link_to "削除する", public_address_path(address), method: :delete , class: "btn btn-danger" %><!-- pathにid必要 public_address_path-->
             </td>
         </tr>
-        <% end %>
-      </table>
+    <% end %>
+    </table>
 
 </div>

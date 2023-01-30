@@ -35,9 +35,9 @@
           <!--カスタマーがログインしている時 -->
                ようこそ、<%= current_customer.last_name + current_customer.first_name %>さん！
 
-               <li><%= link_to "マイページ", public_customer_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li><%= link_to "マイページ", public_customers_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
                <li><%= link_to "商品一覧", public_items_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
-               <li><%= link_to "カート",  public_item_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li><%= link_to "カート", public_cart_items_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
                <li><%= link_to "About", public_about_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
                <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
             　 <% end %>

@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<h3><strong>注文履歴一覧</strong></h3>
-		<% @orders.each do |order|%>
+		<% @orders.each do |order| %>
 
 		<table class="table table-bordered table-condensed">
 		<tr>
@@ -25,7 +25,7 @@
 			</td>
 			<td class="col-xs-2"><%= order.total_payment.to_s(:delimited, delimiter: ',') %></td>
 			<td class="col-xs-2"><%= order.order_status %></td>
-			<td><%= link_to "表示する", customers_order_path(order), class: "btn btn-primary" %></td>
+			<td><%= link_to "表示する", new_public_order_path, class: "btn btn-primary" %></td>
 		</tr>
 		<% end %>
 	</table>
