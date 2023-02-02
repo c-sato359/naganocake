@@ -1,0 +1,66 @@
+<div class="container">
+	<h2>注文情報確認</h2>
+	<div class="row">
+		<div class="col-xs-6">
+			<%#= form_with model: @cart_item do |f| %>
+			<%#= form_with(@order, url: public_orders_path) do |f| %>
+			<table>
+				<thead>
+				  <tr>
+				    <th>商品名</th>
+				  
+					<th>単価(税込)</th>
+					<th>数量</th>
+					<th>小計</th>
+				</tr>
+				</thead>
+			
+				<tbody>
+          <% @cart_items.each do |cart_item| %>
+            <tr>
+              <td class="text-left">
+                <%= cart_item.item.name %>
+              </td>
+              <td class="text-right">
+                ¥<%= ((cart_item.item.price * 1.1).floor).to_s(:delimited, delimiter: ',') %>
+              </td>
+              <td class="text-right">
+                  <%= cart_item.amount %>
+              </td>
+              <td class="text-right">
+                ¥<%= ((cart_item.item.price * 1.1).floor * cart_item.amount).to_s(:delimited, delimiter: ',') %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+			</table>
+
+          <h4>支払方法<h4>
+          <%= @order.payment_method %>
+        
+        	<h4>お届け先</h4>
+        	<%= @order.postal_code %>
+        	
+          <%#= link_to new_public_address_path %>
+        <%#= form_with @address do %>
+        <%= form_with url: "new_public_address_path" do |f| %>
+        <% end %>
+          <table>
+            <tr>
+              <th>商品合計</th><td><%= @total_price %></td>
+            </tr>
+            
+              <tr>
+              <th>送料</th><td>800</td>
+            </tr>  
+            <tr>
+              <th>請求合計</th><td><%= @total_price+800 %></td>
+            </tr>
+          </table>
+          
+       
+
+		
+		</div>
+	</div>
+</div>

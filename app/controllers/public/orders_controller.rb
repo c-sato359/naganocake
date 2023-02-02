@@ -5,12 +5,12 @@ class Public::OrdersController < ApplicationController
     @orders =current_customer.orders
     @customer = current_customer
     @cart_items = current_customer.cart_items #メソッド処理を行う為NEWにも記載する
-    @address = @customer_id
+    @address = Address.new
   end
 
   def payment_method
     card = Card.where(customer_id: current_customer.id).first
-    Payjp.api_key = Rails.application.secrets.payjp_private_key
+    Payjp.api_key = Rails.application.credentials.pay.jp[:PAYJP_PRIVATE]
     Payjp::Charge.create(
     :amount => @item.price,
     :customer => card.customer_id,
@@ -25,7 +25,9 @@ class Public::OrdersController < ApplicationController
      sum = 0
 		cart_items.each do |cart_item|
 			sum += (cart_item.item.price * 1.1).floor * cart_item.amount
-	end
+		end
+		@order = Order.new(order_params)
+		@order.save
 
   end
 
@@ -36,9 +38,26 @@ class Public::OrdersController < ApplicationController
   	@order_detail = @order.cart_items
   end
 
-  def thanks
+  def complete
   end
 
+ def  confirm
+      	@cart_items = current_customer.cart_items
+
+   @order = Order.new(order_params)
+   @order.postal_code = current_customer.postal_code
+   @order.address = current_customer.address
+   @order.name = current_customer.last_name+current_customer.first_name
+     @order.postal_code = current_customer.postal_code
+     @order.address = current_customer.address
+     @order.name = current_customer.last_name+current_customer.first_name
+ @total_price = @cart_items.sum do |cart_item|
+            (cart_item.item.price * cart_item.amount * 1.1).floor
+        end
+
+ end
+ def thanks
+ end
 
   def index
      @orders =current_customer.orders
@@ -57,7 +76,7 @@ class Public::OrdersController < ApplicationController
   	@order_items = @order.order_items #注文から紐付く商品の取得
   	@order.update(order_params) #注文ステータスの更新
    	if @order.order_status == "入金確認" #注文ステータスが入金確認なら下の事をする
-	     @order_items.update_all(making_status: 1) #製作ステータスを「製作待ちに」　更新
+	     @order_items.update_all(making_status: 1) #製作ステータスを「製作待ちに」更新
   	end
   		 redirect_to  admin_order_path(@order) #注文詳細に遷移
   end

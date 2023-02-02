@@ -40,8 +40,8 @@
             <td><%= address.address %></td>
             <td><%= address.name %></td>
             <td>
-                <!--id必要  edit_public_address_path-->
-                <%= link_to "編集する", edit_public_address_path(address),method: :get , class: "btn btn-primary" %>　　<%= link_to "削除する", public_address_path(address), method: :delete , class: "btn btn-danger" %><!-- pathにid必要 public_address_path-->
+              <%= link_to "編集する", edit_public_address_path(address),method: :get , class: "btn btn-primary" %>
+              <%= link_to "削除する", public_address_path(address), method: :delete , class: "btn btn-danger" %>
             </td>
         </tr>
     <% end %>

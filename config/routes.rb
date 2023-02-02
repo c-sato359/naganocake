@@ -7,9 +7,12 @@ Rails.application.routes.draw do
     resources :items, only: [:show, :index]
     resources :cart_items
     #get '/orders/thanks' =>'orders#thanks'
-    get '/orders/thanks', to: 'orders#thanks'
-    #get 'orders/:id', to: 'orders#show'
+    post '/orders/confirm', to: 'orders#confirm'
     resources :orders
+    #get '/orders/confirm', to: 'orders#confirm'
+    get '/orders/thanks', to: 'orders#thanks'
+    get 'orders/:id', to: 'orders#complete'
+
     # :delete_in_carts, only: [:create]
     delete "all_destroy" => "cart_items#all_destroy",as: "customers_all_destroy"
 #resources :items, only:[:show, :index]
