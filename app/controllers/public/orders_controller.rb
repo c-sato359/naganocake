@@ -16,18 +16,26 @@ class Public::OrdersController < ApplicationController
     :customer => card.customer_id,
     :currency => 'jpy',
     )
-    redirect_to public_orders_thanks_path
   end
   def create
+    @order = Order.new(order_params)
+		@order.save
   	@customer = current_customer
-		session[:order] = Order.new
    	@cart_items = current_customer.cart_items
      sum = 0
-		cart_items.each do |cart_item|
+		@cart_items.each do |cart_item|
 			sum += (cart_item.item.price * 1.1).floor * cart_item.amount
 		end
-		@order = Order.new(order_params)
-		@order.save
+    @order_detail = OrderDetail.new
+    @order_detail.order_id = @order
+    #@order_deteil.item_id = cart_item.item,id
+   #@order_detail.amount = @cart_items.amount
+    @order_detail.making_status = 0
+    #@order_detail.price = (cart_item.item.price*1.1).floor
+    @order_detail.save
+
+    @cart_items.destroy_all
+    redirect_to public_orders_thanks_path
 
   end
 
@@ -39,6 +47,19 @@ class Public::OrdersController < ApplicationController
   end
 
   def complete
+   # @order = Order.new(order_params)
+  #  order.save
+    #@cart_items = current_customer.cart_items #メソッド処理を行う為NEWにも記載する
+   # cart_items.each do |cart_item|
+    #  order_detail = OrderDetail.new
+     # order_detail.order_id = order.id
+      #order_deteil.item_id = cart_item.item,id
+      #order_detail.amount = cart_item.amount
+      #order_detail.making_status = 0
+      #order_detail.price = (cart_item.item.price*1.1).floor
+     # order_detail.save
+    #end
+    #cart_items.destroy_all
   end
 
  def  confirm
@@ -48,12 +69,9 @@ class Public::OrdersController < ApplicationController
    @order.postal_code = current_customer.postal_code
    @order.address = current_customer.address
    @order.name = current_customer.last_name+current_customer.first_name
-     @order.postal_code = current_customer.postal_code
-     @order.address = current_customer.address
-     @order.name = current_customer.last_name+current_customer.first_name
- @total_price = @cart_items.sum do |cart_item|
+   @total_price = @cart_items.sum do |cart_item|
             (cart_item.item.price * cart_item.amount * 1.1).floor
-        end
+   end
 
  end
  def thanks
@@ -63,11 +81,15 @@ class Public::OrdersController < ApplicationController
      @orders =current_customer.orders
      @path = Rails.application.routes.recognize_path(request.referer)
     if @path[:controller] == "admin/customers" && @path[:action] == "show"
-     #  @order = Order.where(member_id: params[:format]).page(params[:page]).per(7)
     elsif @path[:controller] == "public/orders"
-    #   @order = Order.where(created_at: Time.zone.today.all_day).page(params[:page]).per(7)
-    #else
-      # @order = Order.page(params[:page]).per(7)
+    end
+    @cart_items.each do |cart_item|
+    @order_detail = OrderDetail.new
+    @order_detail.order_id = order.id
+    @order_deteil.item_id = cart_item.item,id
+    @order_detail.amount = cart_item.amount
+    @order_detail.making_status = 0
+    @order_detail.price = (cart_item.item.price*1.1).floor
     end
   end
 

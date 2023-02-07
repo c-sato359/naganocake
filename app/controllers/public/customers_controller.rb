@@ -14,6 +14,10 @@ class Public::CustomersController < ApplicationController
   	redirect_to public_customers_path
   end
 
+  def unsubscribe
+  end
+
+
   def destroy
   	current_customer.update(is_derleted: true)
   	reset_session

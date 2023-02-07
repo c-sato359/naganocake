@@ -5,8 +5,8 @@
       <h4>支払方法</h4>
       <%= form_with(model: @order, local: true, url: public_orders_confirm_path, method: :post)  do |f| %>
       <%#= f.select :payment_method, options_from_collection_for_select %>
-      <label style="margin-left"> <%= f.radio_button :payment_method, "credit_card" %>クレジットカード</labbr><br>
-      <label style="margin-left"> <%= f.radio_button :payment_method, "transfer" %>銀行振り込み</labbr>
+      <%= f.radio_button :payment_method, :credit_card %><label style="margin-left">クレジットカード</labbr><br>
+      <%= f.radio_button :payment_method, :transfer %><label style="margin-left">銀行振り込み</labbr>
       <h4><strong>お届け先</strong></h4>
       <%#= f.select :address_id, options_from_collection_for_select(Address.all, :id, :name) %>
       <%#= form_with model: Address.new do |f| %>
