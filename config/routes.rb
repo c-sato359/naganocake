@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get 'homes/top'
     resource :customers
     get '/customers/unsubscribe', to: 'customers#unsubscribe'
-    post '/customers/withdrow', to: 'customers#withdrow'
+    patch '/customers/withdraw', to: 'customers#withdraw'
     resources :items, only: [:show, :index]
     resources :cart_items
     #get '/orders/thanks' =>'orders#thanks'
