@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     get '/about', to: 'homes#about'
     get 'homes/top'
     resource :customers
+    get '/customers/unsubscribe', to: 'customers#unsubscribe'
+    post '/customers/withdrow', to: 'customers#withdrow'
     resources :items, only: [:show, :index]
     resources :cart_items
     #get '/orders/thanks' =>'orders#thanks'
@@ -13,15 +15,7 @@ Rails.application.routes.draw do
     resources :orders
     #get '/orders/confirm', to: 'orders#confirm'
     get 'orders/:id', to: 'orders#complete'
-    #get '/orders/thanks', to: 'orders#thanks'
-
-    # :delete_in_carts, only: [:create]
     delete "all_destroy" => "cart_items#all_destroy",as: "customers_all_destroy"
-#resources :items, only:[:show, :index]
-  end
-  namespace :public do
-    #get 'addresses/index'
-    #get 'addresses/edit'
     resources :addresses
   end
   namespace :admin do
@@ -43,16 +37,14 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :items
     resources :genres
-  end
-  namespace :admin do
     #get 'customers/index'
     #get 'customers/show'
     #get 'customers/:id/edit'
-    resource :customers, only: [:show, :index, :update, :edit]
-  end
-  namespace :admin do
+    resources :customers, only: [:show, :index, :update, :edit]
 #get 'orders/:id/show'
-    resources :orders, only: [:show]
+    #post '/orders/order_detail', to: 'orders#details'
+    resources :orders, only: [:show, :update]
+    resources :order_details, only: [:show, :update]
   end
 
     scope module: :public do

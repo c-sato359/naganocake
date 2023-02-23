@@ -2,10 +2,25 @@
 <h2 class="admin-homes-top-title">管理者画面</h2>
 
 <div class="row admin-homes-top-message">
+<h3>注文一覧</h3>
+<table>
+ <tr>
+ <th>購入日</th>
+ <th>購入者</th>
+ <th>注文ステータス</th>
+ <th></th>
+ </tr>
+ <% @orders.each do |order|%>
+ <tr>
+  <td><%= link_to admin_order_path(order.id)do %><%= order.created_at %><% end %>
+</td>
+  <td><%= order.customer.last_name %></td>
+  <td><%= order.status %></td>
+ </tr>
+ <% end %>
+</table>
 
-
- <li><%= link_to admin_homes_top_path, class: 'nav-link text-light' do %>注文一覧<% end %></li>
  <li><%= link_to admin_customers_path, class: 'nav-link text-light' do %>会員一覧<% end %></li>
- <li><%= link_to items_path, class: 'nav-link text-light' do %>商品一覧<% end %></li>
+ <li><%= link_to admin_items_path, class: 'nav-link text-light' do %>商品一覧<% end %></li>
  <li><%= link_to admin_genres_path, class: 'nav-link text-light' do %>ジャンル<% end %></li>
  <li><%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>Log out<% end %></li>

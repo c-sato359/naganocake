@@ -12,7 +12,7 @@ class Public::AddressesController < ApplicationController
     def create
         @address = Address.new(address_params)
         @address.customer_id = current_customer.id
-        if @address.save
+        if @address.save!
             redirect_to new_public_order_path
             flash[:success] = "登録しました。"
         else

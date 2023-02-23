@@ -17,16 +17,16 @@
           <td><%= customer.last_name+customer.first_name %></td>
           <td><%= customer.email %></td>
           <td><% if customer.is_deleted == false %>
-                無効
-              <% else %>
                 有効
+              <% else %>
+                無効
               <% end %>
           </td>
+          <td><%= link_to edit_admin_customer_path(customer), class: 'nav-link text-light' do %>会員情報編集<% end %></td>
         </tr>
       </tbody>
+
     </table>
     <% end %>
-    <li><%= link_to edit_admin_customer_path(@customer), class: 'nav-link text-light' do %>会員情報編集<% end %></li>
-    <li><%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>Log out<% end %></li>
   </div>
 </div>

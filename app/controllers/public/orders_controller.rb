@@ -18,22 +18,28 @@ class Public::OrdersController < ApplicationController
     )
   end
   def create
-    @order = Order.new(order_params)
-		@order.save
+    @order = current_customer.orders.new(order_params)
+    @order.save!
   	@customer = current_customer
-   	@cart_items = current_customer.cart_items
+   	@cart_items = current_customer.cart_items.all
      sum = 0
-		@cart_items.each do |cart_item|
+	@cart_items.each do |cart_item|
 			sum += (cart_item.item.price * 1.1).floor * cart_item.amount
-		end
-    @order_detail = OrderDetail.new
-    @order_detail.order_id = @order
+			@order_detail = @order.order_details.new
+			@order_detail.order_id = @order.id
+            @order_detail.item_id = cart_item.item_id
+            @order_detail.amount = cart_item.amount
+            @order_detail.making_status = 0
+            @order_detail.price = cart_item.item.price
+            @order_detail.save!
+	end
+    #@order_detail = OrderDetail.new
+    #@order_detail.order_id = @order
     #@order_deteil.item_id = cart_item.item,id
    #@order_detail.amount = @cart_items.amount
-    @order_detail.making_status = 0
+    #@order_detail.making_status = 0
     #@order_detail.price = (cart_item.item.price*1.1).floor
-    @order_detail.save
-
+    #@order_detail.save!
     @cart_items.destroy_all
     redirect_to public_orders_thanks_path
 
@@ -78,11 +84,13 @@ class Public::OrdersController < ApplicationController
  end
 
   def index
-     @orders =current_customer.orders
+     @orders =current_customer.orders.includes(:order_details, :items)
+
      @path = Rails.application.routes.recognize_path(request.referer)
     if @path[:controller] == "admin/customers" && @path[:action] == "show"
     elsif @path[:controller] == "public/orders"
     end
+    @cart_items = current_customer.cart_items
     @cart_items.each do |cart_item|
     @order_detail = OrderDetail.new
     @order_detail.order_id = order.id

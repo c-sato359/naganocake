@@ -1,0 +1,3 @@
+ <%= form_with model: @order, local: true, url:   admin_order_path do |f| %>
+                        <%= f.select :status, Order.status %>
+                        <% end %>
