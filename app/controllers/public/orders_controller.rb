@@ -49,7 +49,7 @@ class Public::OrdersController < ApplicationController
     # 注文内容の情報を取得しています！
   	@order = Order.find(params[:id])
     # 注文内容の商品を取得しています！
-  	@order_detail = @order.cart_items
+  	@order_detail = @order.order_details
   end
 
   def complete

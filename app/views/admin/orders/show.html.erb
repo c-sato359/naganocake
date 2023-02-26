@@ -30,10 +30,10 @@
                 <td class="text-left">
                         <%= form_with model: @order, local: true, url: admin_order_path do |f| %>
                           <%= f.label :status %>
-                          <%= f.select :status, ['wait_payment', 'confirm_payment', 'making', 'preparing_ship', 'finish_prepare'],
+                          <%= f.select :status, ["入金待ち", "入金確認", "製作中", "発送準備中", "発送済み"],
                           { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
                           <%= f.submit '送信', class: 'btn btn-primary btn-block' %>
-                  <% end %>
+                        <% end %>
                 </td>
               </tr>
           </tbody>
@@ -55,22 +55,17 @@
             <% @order_details.each do |order_detail| %>
             <tr>
                 <td><%= order_detail.item.name %></td>
-              
                 <td>¥<%= (order_detail.price * 1.1).floor.to_s(:delimited, delimiter: ',') %></td>
                 <td><%= order_detail.amount %></td>
                 <td>¥<%= ((order_detail.item.price * 1.1).floor * (order_detail.amount)).to_s(:delimited, delimiter: ',') %></td>
             </tr>
-              
-     　　　
-             <%= form_with model: order_detail, local: true, url: admin_order_detail_path(order_detail.id), method: :patch do |f| %>
+              <%= form_with model: order_detail, local: true, url: admin_order_detail_path(order_detail.id), method: :patch do |f| %>
                           <%= f.label :status %>
-                          <%= f.select :making_status, ["着手不可", "製作待ち", "製作中", "製作完了" ],
+                          <%= f.select :making_status, ["着手不可", "製作待ち", "製作中", "製作完了"],
                           { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
                           <%= f.submit '送信', class: 'btn btn-primary btn-block' %>
-             <% end %>
-           <% end %>
-
-
+              <% end %>
+            <% end %>
                <strong>請求情報</strong>
         <table class="table  table-bordered table-condensed">
             <tr>
