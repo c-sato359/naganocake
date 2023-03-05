@@ -21,20 +21,27 @@ class Public::CartItemsController < ApplicationController
     end
     # カート商品を追加する
     def create
-        # @cart_item = current_customer.cart_items.build(item_id: params[:item_id])
+        
+        if current_customer.cart_items.find_by(item_id: params[:item_id])#カートの中に一致するものがあるか
+        @cart_item = CartItem.find_by(item_id: params[:item_id])#  存在した場合にその商品について変数を置く
+        @cart_item.amount += params[:cart_item][:amount].to_i
+            
+
+           flash[:notice] = "#{@cart_item.item.name}をカートに追加しました。"
+        else
+            
+        @cart_items = current_customer.cart_items
         @cart_item = CartItem.new(cart_item_params)
         @cart_item.customer_id = current_customer.id
         @cart_item.item_id = params[:item_id]
-        # byebug
-        if @cart_item.save
-           flash[:notice] = "#{@cart_item.item.name}をカートに追加しました。"
-           redirect_to public_cart_items_path
-        else
-            flash[:alert] = "個数を選択してください"
-            @item = Item.find(params[:item_id])
-            @genres = Genre.where(valid_invalid_statue: 0)
-            render "public/items/show"
+           # flash[:alert] = "個数を選択してください"
+            #@item = Item.find(params[:item_id])
+            #@genres = Genre.where(valid_invalid_statue: 0)
+            #render "public/items/show"
         end
+        @cart_item.save!
+        redirect_to public_cart_items_path
+
     end
 
     # 削除や個数を変更した際、カート商品を再計算する
