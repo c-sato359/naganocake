@@ -46,7 +46,7 @@
            <%= f.select :payment_method, options_from_collection_for_select %>
             <%#= f.radio_button :payment_method, "credit_card" %>
             <%#= f.radio_button :payment_method, "transfer" %>
-            <%= @order.payment_method %>
+            <%= @order.payment_method_i18n %>
           </td>
         </tr>
         <tr>

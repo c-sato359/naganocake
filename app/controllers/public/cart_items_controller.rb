@@ -25,11 +25,8 @@ class Public::CartItemsController < ApplicationController
         if current_customer.cart_items.find_by(item_id: params[:item_id])#カートの中に一致するものがあるか
         @cart_item = CartItem.find_by(item_id: params[:item_id])#  存在した場合にその商品について変数を置く
         @cart_item.amount += params[:cart_item][:amount].to_i
-            
-
            flash[:notice] = "#{@cart_item.item.name}をカートに追加しました。"
         else
-            
         @cart_items = current_customer.cart_items
         @cart_item = CartItem.new(cart_item_params)
         @cart_item.customer_id = current_customer.id

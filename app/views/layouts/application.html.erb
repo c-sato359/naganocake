@@ -17,21 +17,13 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-              <% pp customer_signed_in? %>
-              <% pp current_customer %>
+            
               <% if admin_signed_in? %>
                 <li><%= link_to admin_homes_top_path, class: 'nav-link text-light' do %>注文一覧<% end %></li>
                 <li><%= link_to admin_customers_path, class: 'nav-link text-light' do %>会員一覧<% end %></li>
                 <li><%= link_to admin_items_path, class: 'nav-link text-light' do %>商品一覧<% end %></li>
                 <li><%= link_to admin_genres_path, class: 'nav-link text-light' do %>ジャンル一覧<% end %></li>
-               <% else %>
-          <!-- ログインしていない時 -->
-               <li><%= link_to "商品一覧", public_items_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
-               <li><%= link_to "新規登録", new_customer_registration_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
-               <li><%= link_to "About",  public_about_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
-               <li><%= link_to "ログイン", new_customer_session_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
-               <% end %>
-               <% if customer_signed_in? %>
+              <% elsif customer_signed_in? %>
           <!--カスタマーがログインしている時 -->
                ようこそ、<%= current_customer.last_name + current_customer.first_name %>さん！
 
@@ -40,16 +32,22 @@
                <li><%= link_to "カート", public_cart_items_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
                <li><%= link_to "About", public_about_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
                <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
-            　 <% end %>
-            </ul>
+              <% else %>
+          <!-- ログインしていない時 -->
+               <li><%= link_to "商品一覧", public_items_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li><%= link_to "新規登録", new_customer_registration_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li><%= link_to "About",  public_about_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+               <li><%= link_to "ログイン", new_customer_session_path, style: "font-family: HiraMinPro-W6; color: #000000;" %></li>
+              <% end %>
+  
           </div>
         </div>
       </nav>
     </header>
 
   <body>
-    <%= customer_signed_in? %>
-    <%= admin_signed_in? %>
+    <%#= customer_signed_in? %><!--ログインしているかチェック-->
+    <%#= admin_signed_in? %>
     <%= yield %>
   </body>
 </html>

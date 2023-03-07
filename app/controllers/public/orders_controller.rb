@@ -18,18 +18,12 @@ class Public::OrdersController < ApplicationController
     )
   end
   def create
-    @order = current_customer.orders.new(order_params)
-    if @order.items.any?
-        @order.items_alredy = Item.find_by(name:)
-        @order.items_alredy.amunt += params[:item_id][:amount]
-        @order.item.save
-    else
-        @order.item = Order.new
-    end
+  
+   @order = current_customer.orders.new(order_params)
     @order.save!
   	@customer = current_customer
    	@cart_items = current_customer.cart_items.all
-   	
+     sum = 0
 	@cart_items.each do |cart_item|
 			sum += (cart_item.item.price * 1.1).floor * cart_item.amount
 			@order_detail = @order.order_details.new
@@ -40,6 +34,7 @@ class Public::OrdersController < ApplicationController
             @order_detail.price = cart_item.item.price
             @order_detail.save!
 	end
+
  
     @cart_items.destroy_all
     redirect_to public_orders_thanks_path

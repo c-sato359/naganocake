@@ -24,7 +24,7 @@ def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.is_a?(Admin)
        admin_homes_top_path
     else
-        public_homes_top_path
+       public_customers_path
     end
 end
 def
@@ -34,7 +34,7 @@ after_sign_out_path_for(resource_or_scope)
     elsif resource_or_scope == :admin
         new_admin_session_path
     else
-        public_items_path
+        public_homes_top_path
     end
 end
   def configure_permitted_parameters

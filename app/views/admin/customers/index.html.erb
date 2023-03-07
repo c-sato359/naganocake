@@ -14,7 +14,7 @@
       <tbody>
         <tr>
           <td><%= customer.id %></td>
-          <td><%= customer.last_name+customer.first_name %></td>
+          <td><%= link_to edit_admin_customer_path(customer), class: 'nav-link text-light' do %><%= customer.last_name+customer.first_name %><% end %></td>
           <td><%= customer.email %></td>
           <td><% if customer.is_deleted == false %>
                 有効

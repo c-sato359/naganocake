@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :public do
     get '/about', to: 'homes#about'
     get 'homes/top'
-    resource :customers
+    resource :customers 
     get '/customers/unsubscribe', to: 'customers#unsubscribe'
     patch '/customers/withdraw', to: 'customers#withdraw'
     resources :items, only: [:show, :index]
