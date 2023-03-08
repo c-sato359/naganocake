@@ -6,5 +6,5 @@
 退会する場合は、「退会する」をクリックしてください。
 
 <%= form_with model: @customer,url: public_customers_withdraw_path, method: :patch do |f| %>        
-<%= f.submit " 退会する", class: "glyphicon glyphicon-tint btn btn-danger col-sm-3", style: "margin: 10px;" %>
+<%= f.submit "退会する","data-confirm" => "退会しますか？", class: "glyphicon glyphicon-tint btn btn-danger col-sm-3", style: "margin: 10px;" %>
 <% end %>

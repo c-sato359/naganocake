@@ -21,14 +21,14 @@ class Public::CustomersController < ApplicationController
       @customer = current_customer
       	current_customer.update(is_deleted: true)
   	reset_session
-  	redirect_to  public_items_path
+  	redirect_to  public_homes_top_path
   end
 
 
   def destroy
-  	current_customer.update(is_deleted: true)
-  	reset_session
-  	redirect_to  public_items_path
+  	#current_customer.update(is_deleted: true)
+  	#reset_session
+  #	redirect_to  public_homes_top_path
   end
   
   private
