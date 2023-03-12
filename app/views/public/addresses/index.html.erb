@@ -1,7 +1,7 @@
 <div class="container takasa">
 	<h2><i class="fas fa-truck"></i>配送先登録/一覧</h2><br>
 
-    <%= form_for @address, url:public_addresses_path, method: :post do |f| %>
+    <%= form_for @address, url:addresses_path, method: :post do |f| %>
     <div class="row">
       <div class="col-xs-1">
         <%= f.label :郵便番号 %>
@@ -40,8 +40,8 @@
             <td><%= address.address %></td>
             <td><%= address.name %></td>
             <td>
-              <%= link_to "編集する", edit_public_address_path(address),method: :get , class: "btn btn-primary" %>
-              <%= link_to "削除する", public_address_path(address), method: :delete , class: "btn btn-danger" %>
+              <%= link_to "編集する", edit_address_path(address),method: :get , class: "btn btn-primary" %>
+              <%= link_to "削除する", address_path(address), method: :delete , class: "btn btn-danger" %>
             </td>
         </tr>
     <% end %>

@@ -10,7 +10,7 @@
 
 		<% @items.each do |item| %>
 		<div class="col-xs-3" style="padding-right: 0px; padding-left: 0px; margin: 10px 0;">
-			<%= link_to public_item_path(item.id) ,style: "color: black;", data: {"turbolinks" => false} do %>
+			<%= link_to item_path(item.id) ,style: "color: black;", data: {"turbolinks" => false} do %>
 				<%= item.name %>
 				¥<%= item.price.to_s(:delimited, delimiter: ',') %>
 			<% end %>

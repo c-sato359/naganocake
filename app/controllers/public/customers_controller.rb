@@ -1,17 +1,17 @@
 class Public::CustomersController < ApplicationController
 	before_action :authenticate_customer!
-	def show
-		@customer = current_customer
-	end
+  def show
+	@customer = current_customer
+  end
 
-	def edit
-		@customer = current_customer
-	end
+  def edit
+	@customer = current_customer
+  end
 
   def update
   	@customer = current_customer
   	@customer.update(customer_params)
-  	redirect_to public_customers_path
+  	redirect_to customers_my_page_path
   end
 
   def unsubscribe
@@ -21,7 +21,7 @@ class Public::CustomersController < ApplicationController
       @customer = current_customer
       	current_customer.update(is_deleted: true)
   	reset_session
-  	redirect_to  public_homes_top_path
+  	redirect_to  homes_top_path
   end
 
 

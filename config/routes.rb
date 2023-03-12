@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
+patch 'customers' => "public/customers#update"
 
-  namespace :public do
+devise_for :customers,skip: [:passwords], controllers: {
+  registrations: "public/registrations",
+  sessions: 'public/sessions'
+  }
+
+ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+  sessions: "admin/sessions"
+  }
+ scope module: :public do
     get '/about', to: 'homes#about'
-    get 'homes/top'
-    resource :customers 
+   # get 'homes/top', to: 'customers#new'
+    root to: 'homes#top'
+    get 'customers/my_page' => "customers#show"
+    get 'customers/edit/my_page' => "customers#edit"
+   # resources :customers
     get '/customers/unsubscribe', to: 'customers#unsubscribe'
     patch '/customers/withdraw', to: 'customers#withdraw'
     resources :items, only: [:show, :index]
@@ -22,17 +34,10 @@ Rails.application.routes.draw do
     get 'homes/top'
   end
   #devise_for :admins
-  devise_for :customers,skip: [:passwords], controllers: {
-  registrations: "public/registrations",
-  sessions: 'public/sessions'
-  }
 
   resources :cart, only: [:show]
   resources :charge, only: [:create]
 
-  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
-  sessions: "admin/sessions"
-  }
 
   namespace :admin do
     resources :items
@@ -47,13 +52,13 @@ Rails.application.routes.draw do
     resources :order_details, only: [:show, :update]
   end
 
-    scope module: :public do
+    #scope module: :public do
     #  get '/about', to: 'homes#about'
 
     #  resources :items, only: [:show, :index]
      # resources :add_to_carts, only: [:create]
       #resources :delete_in_carts, only: [:create]
-    end
+    #end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 end

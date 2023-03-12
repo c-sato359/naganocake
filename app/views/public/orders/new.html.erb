@@ -3,7 +3,7 @@
     <div class= "col-xs-7">
       <h3><strong>注文情報入力</strong></h3>
       <h4>支払方法</h4>
-      <%= form_with(model: @order, local: true, url: public_orders_confirm_path, method: :post)  do |f| %>
+      <%= form_with(model: @order, local: true, url: orders_confirm_path, method: :post)  do |f| %>
       <%#= f.select :payment_method, options_from_collection_for_select %>
       <%= f.radio_button :payment_method, :credit_card %><label style="margin-left">クレジットカード</labbr><br>
       <%= f.radio_button :payment_method, :transfer %><label style="margin-left">銀行振り込み</labbr>

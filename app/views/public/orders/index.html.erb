@@ -20,7 +20,7 @@
 			</td>
 			<td><%= order.total_payment %></td>
 			<td><%= order.status %></td>
-			<td><%= link_to "表示する", public_order_path(order.id), class: "btn btn-primary" %></td>
+			<td><%= link_to "表示する", order_path(order.id), class: "btn btn-primary" %></td>
 		</tr>
 		<% end %>
 	</table>
